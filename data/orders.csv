@@ -1,0 +1,5 @@
+order_id,customer_id,product,amount_inr,delivery_status,days_since_delivery
+ORD1001,C001,Wireless headphones,2499,delivered,2
+ORD1002,C002,USB charging cable,499,delivered,3
+ORD1003,C003,Bluetooth speaker,1999,delivered,40
+ORD1004,C001,Wireless mouse,899,in_transit,0

@@ -1,0 +1,3 @@
+# Install into a SEPARATE virtual environment to avoid framework dependency conflicts.
+crewai==1.15.23
+python-dotenv==1.2.4

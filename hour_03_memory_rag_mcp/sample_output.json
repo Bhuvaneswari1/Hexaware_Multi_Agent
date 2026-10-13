@@ -1,0 +1,35 @@
+{
+  "hour": 3,
+  "mode": "demo",
+  "thread_id": "sample-demo",
+  "status": "completed",
+  "route": [
+    "billing",
+    "tech"
+  ],
+  "completed": [
+    "billing",
+    "tech"
+  ],
+  "refund_amount_inr": 2499,
+  "refund_status": "proposed",
+  "response": "Verified duplicate charge: INR 2499. Eligible for replacement review. Please provide a damage photo and pickup preference. Refund status: proposed; INR 2499. Saved contact preference: email.",
+  "draft": "Verified duplicate charge: INR 2499. Eligible for replacement review. Please provide a damage photo and pickup preference.",
+  "profile": {
+    "contact_preference": "email"
+  },
+  "plan": [],
+  "review": {},
+  "events": [
+    "intake",
+    "triage:billing+tech",
+    "supervisor->billing",
+    "billing",
+    "supervisor->tech",
+    "tech",
+    "supervisor->draft",
+    "draft",
+    "finish"
+  ],
+  "approval_request": []
+}

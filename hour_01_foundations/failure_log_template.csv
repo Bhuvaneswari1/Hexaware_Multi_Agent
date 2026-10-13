@@ -1,0 +1,4 @@
+case,mode,available_tools,observed_tool_calls,missing_evidence,incorrect_claim,latency_notes
+duplicate_charge_single,live,2,,,,
+mixed_ticket_overloaded,live,9,,,,
+mixed_ticket_specialists,live,scoped,,,,

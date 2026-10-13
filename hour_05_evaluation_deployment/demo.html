@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SupportDesk • Trainer Console</title>
+<style>
+body{font:16px system-ui,sans-serif;background:#f3f5fa;color:#16233a;max-width:1180px;margin:32px auto;padding:0 20px}h1{margin-bottom:4px}p{line-height:1.55}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{background:white;padding:24px;border-radius:14px;border:1px solid #dce1eb}label{display:block;font-weight:600;margin:14px 0 6px}input,textarea,select{box-sizing:border-box;width:100%;font:inherit;padding:10px;border:1px solid #bec7d6;border-radius:6px}textarea{height:130px}button{background:#205ac5;color:white;border:0;padding:12px 18px;margin:16px 8px 0 0;border-radius:7px;cursor:pointer}button:disabled{opacity:.5;cursor:wait}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f3f8;padding:14px;max-height:470px;overflow:auto;font-size:13px}.status{font-size:14px;color:#4b5971} @media(max-width:800px){.grid{grid-template-columns:1fr}}
+</style>
+<h1>SupportDesk Trainer Console</h1><p>One customer ticket, several specialist agents. Watch the handoffs, then review a simulated refund.</p>
+<p class="status" id="health">Checking service…</p>
+<div class="grid"><section class="card"><h2>1. Submit a ticket</h2>
+<label>Customer API key<input id="key" type="password" value="classroom-customer-key"></label>
+<label>Thread ID<input id="thread"></label>
+<label>Customer ID<input id="customer" value="C001"></label>
+<label>Order ID<input id="order" value="ORD1001"></label>
+<label>Message<textarea id="message">My headphones arrived damaged and I was charged twice. Please arrange a replacement and resolve the duplicate charge.</textarea></label>
+<label><input type="checkbox" id="mcp" style="width:auto"> Use MCP for order lookup</label>
+<button id="submit">Run and stream workflow</button><button id="new">New thread</button>
+<h2>2. Human review</h2><label>Reviewer key<input id="reviewer" type="password" value="classroom-reviewer-key"></label>
+<label>Decision<select id="decision"><option>approve</option><option>reject</option><option>edit</option></select></label>
+<label>Edited amount (INR, edit only)<input id="amount" type="number" min="1" value="2000"></label>
+<button id="approve">Resume with decision</button><p class="status">Classroom data only. No payment or shipment is executed.</p></section>
+<section class="card"><h2>Workflow events</h2><pre id="events">Submit a ticket to see graph node updates.</pre><h2>Result</h2><pre id="result">Awaiting a ticket.</pre></section></div>
+<script>
+const el=id=>document.getElementById(id);const display=(id,data)=>el(id).textContent=JSON.stringify(data,null,2);
+const fresh=()=>el('thread').value='demo-'+Date.now();fresh();el('new').onclick=fresh;
+fetch('/health').then(r=>r.json()).then(d=>el('health').textContent=`Service: ${d.status} • Mode: ${d.mode} • Hour ${d.hour}`);
+el('submit').onclick=async()=>{el('submit').disabled=true;el('events').textContent='';el('result').textContent='Running…';
+try{const response=await fetch('/tickets/stream',{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':el('key').value},body:JSON.stringify({thread_id:el('thread').value,ticket:{customer_id:el('customer').value,order_id:el('order').value,message:el('message').value,preference:'email'},use_mcp:el('mcp').checked})});
+if(!response.ok)throw Error(await response.text());const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='';
+while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});let index;
+while((index=buffer.indexOf('\n\n'))>=0){const chunk=buffer.slice(0,index);buffer=buffer.slice(index+2);const event=chunk.split('\n').find(x=>x.startsWith('event:'))?.slice(7);const data=chunk.split('\n').find(x=>x.startsWith('data:'))?.slice(6);if(!data)continue;const parsed=JSON.parse(data);if(event==='result'||event==='error')display('result',parsed);else{el('events').textContent+=JSON.stringify(parsed,null,2)+'\n';el('events').scrollTop=el('events').scrollHeight;}}}
+}catch(e){el('result').textContent=e.message}finally{el('submit').disabled=false}};
+el('approve').onclick=async()=>{el('approve').disabled=true;try{const decision={action:el('decision').value};if(decision.action==='edit')decision.amount_inr=Number(el('amount').value);const r=await fetch('/approvals',{method:'POST',headers:{'Content-Type':'application/json','X-Reviewer-Key':el('reviewer').value},body:JSON.stringify({thread_id:el('thread').value,customer_id:el('customer').value,decision})});display('result',await r.json());}catch(e){el('result').textContent=e.message}finally{el('approve').disabled=false}};
+</script></html>

@@ -1,0 +1,53 @@
+{
+  "hour": 5,
+  "mode": "demo",
+  "thread_id": "sample-demo",
+  "status": "awaiting_approval",
+  "route": [
+    "billing",
+    "tech"
+  ],
+  "completed": [
+    "billing",
+    "tech"
+  ],
+  "refund_amount_inr": 2499,
+  "refund_status": "proposed",
+  "response": "",
+  "draft": "Verified duplicate charge: INR 2499. Eligible for replacement review. Please provide a damage photo and pickup preference.",
+  "profile": {
+    "contact_preference": "email"
+  },
+  "plan": [
+    "Ask billing to investigate with scoped tools",
+    "Ask tech to investigate with scoped tools",
+    "Draft response",
+    "Review evidence",
+    "Obtain approval when required"
+  ],
+  "review": {
+    "passed": true,
+    "feedback": "All routed issues have supporting findings."
+  },
+  "events": [
+    "intake",
+    "triage:billing+tech",
+    "planner",
+    "supervisor->billing",
+    "billing",
+    "supervisor->tech",
+    "tech",
+    "supervisor->draft",
+    "draft",
+    "critic:pass"
+  ],
+  "approval_request": [
+    {
+      "kind": "refund_approval",
+      "order_id": "ORD1001",
+      "amount_inr": 2499,
+      "threshold_inr": 1000,
+      "message": "Approve, reject, or edit this SIMULATED refund."
+    }
+  ]
+}

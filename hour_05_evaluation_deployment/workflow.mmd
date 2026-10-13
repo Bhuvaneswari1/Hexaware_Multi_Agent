@@ -1,0 +1,53 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	intake(intake)
+	triage(triage)
+	planner(planner)
+	billing(billing)
+	tech(tech)
+	knowledge(knowledge)
+	escalation(escalation)
+	approval(approval)
+	billing_refund(billing_refund)
+	finish(finish)
+	supervisor(supervisor)
+	finish_rejected_review(finish_rejected_review)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> intake;
+	approval --> billing_refund;
+	billing --> supervisor;
+	billing_refund --> finish;
+	draft____end__ -.-> approval;
+	draft____end__ -.-> finish_rejected_review;
+	escalation --> draft__draft;
+	finish_rejected_review --> finish;
+	intake --> triage;
+	knowledge --> supervisor;
+	planner --> supervisor;
+	supervisor -.-> billing;
+	supervisor -.-> draft__draft;
+	supervisor -.-> escalation;
+	supervisor -.-> knowledge;
+	supervisor -.-> tech;
+	tech --> supervisor;
+	triage --> planner;
+	finish --> __end__;
+	subgraph draft
+	draft__draft(draft)
+	draft__critic(critic)
+	draft__revise(revise)
+	draft____end__(<p>__end__</p>)
+	draft__critic -.-> draft____end__;
+	draft__critic -.-> draft__revise;
+	draft__draft --> draft__critic;
+	draft__revise --> draft__critic;
+	end
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+

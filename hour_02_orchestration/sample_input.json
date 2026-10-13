@@ -1,0 +1,6 @@
+{
+  "customer_id": "C001",
+  "order_id": "ORD1001",
+  "message": "My headphones arrived damaged and I was charged twice. Please arrange a replacement and resolve the duplicate charge.",
+  "preference": "email"
+}

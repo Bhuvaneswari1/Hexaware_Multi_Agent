@@ -1,0 +1,16 @@
+ticket_id,routing_correct,handoff_correct,task_success,actual_route,actual_status,actual_refund_inr,quality_score,quality_reason
+T01,True,True,True,billing,awaiting_approval,2499,,Not run; add --judge with credentials.
+T02,True,True,True,tech,completed,0,,Not run; add --judge with credentials.
+T03,True,True,True,billing|tech,awaiting_approval,2499,,Not run; add --judge with credentials.
+T04,True,True,True,billing,completed,499,,Not run; add --judge with credentials.
+T05,True,True,True,billing,completed,0,,Not run; add --judge with credentials.
+T06,True,True,True,tech,completed,0,,Not run; add --judge with credentials.
+T07,True,True,True,tech,completed,0,,Not run; add --judge with credentials.
+T08,True,True,True,knowledge,completed,0,,Not run; add --judge with credentials.
+T09,True,True,True,knowledge,completed,0,,Not run; add --judge with credentials.
+T10,True,True,True,escalation,escalated,0,,Not run; add --judge with credentials.
+T11,True,True,True,escalation,escalated,0,,Not run; add --judge with credentials.
+T12,True,True,True,escalation,escalated,0,,Not run; add --judge with credentials.
+T13,True,True,True,escalation,escalated,0,,Not run; add --judge with credentials.
+T14,True,True,True,billing|tech,completed,499,,Not run; add --judge with credentials.
+T15,True,True,True,billing,completed,0,,Not run; add --judge with credentials.

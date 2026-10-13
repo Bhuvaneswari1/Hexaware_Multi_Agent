@@ -1,0 +1,11 @@
+services:
+  supportdesk:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    env_file: .env
+    volumes:
+      - supportdesk_data:/app/runtime
+    restart: unless-stopped
+volumes:
+  supportdesk_data:

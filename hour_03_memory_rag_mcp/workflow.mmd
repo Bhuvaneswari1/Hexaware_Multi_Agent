@@ -1,0 +1,35 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	intake(intake)
+	triage(triage)
+	billing(billing)
+	tech(tech)
+	knowledge(knowledge)
+	escalation(escalation)
+	draft(draft)
+	finish(finish)
+	supervisor(supervisor)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> intake;
+	billing --> supervisor;
+	draft --> finish;
+	escalation --> draft;
+	intake --> triage;
+	knowledge --> supervisor;
+	supervisor -.-> billing;
+	supervisor -.-> draft;
+	supervisor -.-> escalation;
+	supervisor -.-> knowledge;
+	supervisor -.-> tech;
+	tech --> supervisor;
+	triage --> supervisor;
+	finish --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+

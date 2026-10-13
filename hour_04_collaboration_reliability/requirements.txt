@@ -1,0 +1,2 @@
+# Use the shared tested dependency set from this folder.
+-r ../requirements.txt
